@@ -1,0 +1,852 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* BITE job content HTML fragments */
+.bite-content {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: #374151;
+}
+.bite-content h1,
+.bite-content h2,
+.bite-content h3,
+.bite-content h4 {
+  font-weight: 900;
+  color: #1a1a1a;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+.bite-content h1 { font-size: 1.4rem; }
+.bite-content h2 { font-size: 1.2rem; }
+.bite-content h3 { font-size: 1rem; }
+.bite-content p {
+  margin-bottom: 0.75rem;
+}
+.bite-content ul,
+.bite-content ol {
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.bite-content ul { list-style: none; padding-left: 0; }
+.bite-content ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+.bite-content ul li::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: #C8D400;
+  flex-shrink: 0;
+  margin-top: 0.45rem;
+}
+.bite-content ol li {
+  margin-bottom: 0.4rem;
+}
+.bite-content strong, .bite-content b {
+  font-weight: 800;
+  color: #1a1a1a;
+}
+.bite-content a {
+  color: #1a1a1a;
+  text-decoration: underline;
+  text-decoration-color: #C8D400;
+}
+.bite-content a:hover {
+  color: #C8D400;
+}
+
+/* ── WordPress article content renderer ──────────────────────────── */
+.wp-content {
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  color: #374151;
+}
+.wp-content h1,
+.wp-content h2,
+.wp-content h3,
+.wp-content h4,
+.wp-content h5 {
+  font-weight: 900;
+  color: #1a1a1a;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.25;
+}
+.wp-content h1 { font-size: 2rem; }
+.wp-content h2 { font-size: 1.6rem; border-bottom: 2px solid #C8D400; padding-bottom: 0.4rem; }
+.wp-content h3 { font-size: 1.25rem; }
+.wp-content h4 { font-size: 1rem; }
+.wp-content p {
+  margin-bottom: 1.25rem;
+}
+.wp-content a {
+  color: #1a1a1a;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: #C8D400;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+.wp-content a:hover { color: #C8D400; }
+.wp-content ul,
+.wp-content ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+.wp-content ul { list-style: none; padding-left: 0; }
+.wp-content ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.4rem 0;
+}
+.wp-content ul li::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  min-width: 6px;
+  background: #C8D400;
+  margin-top: 0.6rem;
+}
+.wp-content ol li { margin-bottom: 0.5rem; }
+.wp-content strong, .wp-content b {
+  font-weight: 800;
+  color: #1a1a1a;
+}
+.wp-content em, .wp-content i { font-style: italic; }
+.wp-content blockquote {
+  border-left: 4px solid #C8D400;
+  margin: 2rem 0;
+  padding: 1rem 1.5rem;
+  background: #f9f9f9;
+  font-style: italic;
+  color: #4b5563;
+}
+.wp-content blockquote p { margin-bottom: 0; }
+.wp-content img {
+  width: 100%;
+  height: auto;
+  margin: 2rem 0;
+  object-fit: cover;
+}
+.wp-content figure { margin: 2rem 0; }
+.wp-content figcaption {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+.wp-content pre, .wp-content code {
+  font-family: 'Courier New', monospace;
+  background: #1a1a1a;
+  color: #C8D400;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+.wp-content pre {
+  padding: 1.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+.wp-content hr {
+  border: none;
+  border-top: 2px solid #e5e7eb;
+  margin: 2.5rem 0;
+}
+.wp-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+.wp-content th {
+  background: #1a1a1a;
+  color: #C8D400;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 800;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.wp-content td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+}
+.wp-content tr:last-child td { border-bottom: none; }
+.wp-content tr:nth-child(even) td { background: #f9f9f9; }
+
+@layer base {
+  body {
+    @apply font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Wave animations for hero sections */
+@keyframes wave-1 {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-25%) translateY(-5px); }
+}
+
+@keyframes wave-2 {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-15%) translateY(-3px); }
+}
+
+@keyframes wave-3 {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-10%) translateY(-2px); }
+}
+
+.animate-wave-1 {
+  animation: wave-1 8s ease-in-out infinite;
+}
+
+.animate-wave-2 {
+  animation: wave-2 6s ease-in-out infinite;
+}
+
+.animate-wave-3 {
+  animation: wave-3 10s ease-in-out infinite;
+}
+
+@layer utilities {
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  /* Optimized animation with GPU acceleration */
+  .animate-scroll-optimized {
+    animation: scroll 30s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  /* Slower pulse animation */
+  @keyframes pulse-slow {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  /* Legacy support - keep old class but optimized */
+  .animate-scroll {
+    animation: scroll 30s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* ── Fade-in for modal/lightbox overlays ─────────────────────────────── */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+
+  /* Electromagnetic wave animations - lines meet at fixed points and flow outward */
+  @keyframes electromagneticWave1 {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100px);
+    }
+  }
+
+  @keyframes electromagneticWave2 {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100px);
+    }
+  }
+
+  @keyframes electromagneticWave3 {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100px);
+    }
+  }
+
+  /* Synchronized pulse effect for electromagnetic feel */
+  @keyframes electromagneticPulse {
+    0%, 100% {
+      opacity: 1;
+      transform: translateX(0) scaleY(1);
+    }
+    25% {
+      opacity: 0.95;
+      transform: translateX(-25px) scaleY(1.02);
+    }
+    50% {
+      opacity: 1;
+      transform: translateX(-50px) scaleY(1);
+    }
+    75% {
+      opacity: 0.95;
+      transform: translateX(-75px) scaleY(0.98);
+    }
+  }
+
+  .animate-wave-1 {
+    animation: electromagneticWave1 8s linear infinite;
+    will-change: transform;
+  }
+
+  .animate-wave-2 {
+    animation: electromagneticWave2 8s linear infinite;
+    animation-delay: -0.3s;
+    will-change: transform;
+  }
+
+  .animate-wave-3 {
+    animation: electromagneticWave3 8s linear infinite;
+    animation-delay: -0.6s;
+    will-change: transform;
+  }
+
+  .animate-wave-4 {
+    animation: electromagneticWave1 8s linear infinite;
+    animation-delay: -0.9s;
+    will-change: transform;
+  }
+
+  /* Line grow animations for section dividers - grow from center */
+  @keyframes lineGrowFromCenter {
+    0% {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.7;
+    }
+    100% {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes lineGrowFromCenterDelayed {
+    0%, 20% {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+    70% {
+      opacity: 0.7;
+    }
+    100% {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes lineGrowFromCenterSlow {
+    0%, 30% {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+    80% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+  }
+
+  .animate-line-grow-1 {
+    animation: lineGrowFromCenter 1.5s ease-out forwards;
+    transform-origin: center;
+  }
+
+  .animate-line-grow-2 {
+    animation: lineGrowFromCenterDelayed 1.8s ease-out forwards;
+    transform-origin: center;
+  }
+
+  .animate-line-grow-3 {
+    animation: lineGrowFromCenterSlow 2.2s ease-out forwards;
+    transform-origin: center;
+  }
+
+  .animate-line-grow-4 {
+    animation: lineGrowFromCenterSlow 2.5s ease-out forwards;
+    transform-origin: center;
+  }
+
+  /* Clean interactive border highlight - perfectly aligned */
+  @keyframes borderShimmer {
+    0% {
+      opacity: 0.5;
+      box-shadow: 0 0 0 0 rgba(200, 212, 0, 0);
+    }
+    50% {
+      opacity: 1;
+      box-shadow: 0 0 20px 0 rgba(200, 212, 0, 0.3);
+    }
+    100% {
+      opacity: 0.5;
+      box-shadow: 0 0 0 0 rgba(200, 212, 0, 0);
+    }
+  }
+
+  @keyframes borderFadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes cornerGlow {
+    0%, 100% {
+      opacity: 0.4;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
+  }
+
+  .animate-border-shimmer {
+    animation: borderShimmer 2s ease-in-out infinite;
+  }
+
+  .animate-border-fade-in {
+    animation: borderFadeIn 0.3s ease-out forwards;
+  }
+
+  .animate-corner-glow {
+    animation: cornerGlow 2s ease-in-out infinite;
+  }
+
+  /* Sketched border dash animation - SLOWER */
+  @keyframes sketchDashMove {
+    0% {
+      stroke-dashoffset: 0;
+    }
+    100% {
+      stroke-dashoffset: -60;
+    }
+  }
+
+  @keyframes sketchDashMoveReverse {
+    0% {
+      stroke-dashoffset: 0;
+    }
+    100% {
+      stroke-dashoffset: 60;
+    }
+  }
+
+  .animate-sketch-dash {
+    animation: sketchDashMove 4s linear infinite;
+  }
+
+  .animate-sketch-dash-reverse {
+    animation: sketchDashMoveReverse 5s linear infinite;
+  }
+
+  /* Pulse glow for interactive elements */
+  @keyframes pulseGlow {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(200, 212, 0, 0.4), inset 0 0 0 2px #C8D400;
+    }
+    50% {
+      box-shadow: 0 0 15px 3px rgba(200, 212, 0, 0.2), inset 0 0 0 2px #C8D400;
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  /* Lime green background glow effects */
+  .bg-lime-glow {
+    background: radial-gradient(ellipse at center, rgba(200, 212, 0, 0.15) 0%, transparent 70%);
+  }
+
+  .bg-lime-glow-soft {
+    background: radial-gradient(ellipse at center, rgba(200, 212, 0, 0.08) 0%, transparent 60%);
+  }
+
+  .bg-lime-gradient-subtle {
+    background: linear-gradient(180deg, rgba(200, 212, 0, 0.05) 0%, transparent 50%, rgba(200, 212, 0, 0.03) 100%);
+  }
+}
+
+/* ── Sonic scan-line — radar sweep top to bottom ─────────────────────────── */
+@keyframes sonicScanLine {
+  0%   { top: -2px;           opacity: 0;   }
+  2%   { opacity: 1;                        }
+  94%  { opacity: 0.75;                     }
+  98%  { opacity: 0;                        }
+  100% { top: calc(100% + 2px); opacity: 0; }
+}
+
+/* ── Footer topology scan sweep (ultra-slow, cinematic) ─────────── */
+@keyframes footerScanSweep {
+  0%   { top: -2px;           opacity: 0;   }
+  3%   { opacity: 0.7;                      }
+  97%  { opacity: 0.5;                      }
+  100% { top: calc(100% + 2px); opacity: 0; }
+}
+
+/* ── Section Reveal / Card Stack Effect ─────────────────────────────────── */
+
+/*
+  Premium spring-physics reveal.
+  Easing: cubic-bezier(0.16, 1, 0.3, 1) — fast initial velocity,
+  smooth deceleration, no overshoot. Feels like iOS spring.
+*/
+@keyframes sectionCardReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(36px) scale(0.988);
+    filter: blur(3px);
+  }
+  55% {
+    opacity: 0.92;
+    filter: blur(0.5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* Accent shimmer line — grows from center, then softly fades */
+@keyframes sectionAccentLine {
+  0%   { width: 0;     opacity: 0;   }
+  40%  { opacity: 0.7;               }
+  100% { width: 180px; opacity: 0.4; }
+}
+
+/* Lime glow — brief flash on entry, dissolves */
+@keyframes sectionLimeGlow {
+  0%   { opacity: 0.12; }
+  40%  { opacity: 0.05; }
+  100% { opacity: 0;    }
+}
+
+.section-reveal-enter {
+  animation: sectionCardReveal 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.section-reveal-accent {
+  animation: sectionAccentLine 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.08s forwards;
+}
+
+.section-reveal-glow {
+  animation: sectionLimeGlow 1.6s ease-out 0.15s forwards;
+}
+
+/* Progress pulse for Tanja CTA button */
+@keyframes progressPulse {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+
+/* ── Lime bg brand rule: all bg-[#C8D400] interactive elements use white text ─ */
+/*
+  Brand mandate (updated 2026-04): text on lime CTA buttons MUST be white.
+  Accessibility note: white (#FFF) on lime (#C8D400) has ~1.9:1 contrast — pair with
+  font-weight:900 and font-size>=14px to compensate. Decorative tags/badges may use
+  white or dark depending on context; interactive CTA buttons always use white.
+*/
+
+/* ── Performance optimizations ──────────────────────────────────────────── */
+
+/* All images lazy load and won't cause layout shifts */
+img {
+  content-visibility: auto;
+}
+
+/* Heavy sections: contain:style removed — it blocks CSS custom property inheritance
+   and causes subtle font/color scaling mismatches across section boundaries.
+   Use contain:paint only on specific heavy sections if needed. */
+
+/* Prevent FOUT on animated elements */
+[class*="animate-"],
+[class*="transition-"] {
+  will-change: auto;
+}
+
+/* GPU-accelerate common transform targets */
+.hover\:scale-105:hover,
+.hover\:-translate-y-2:hover,
+.group:hover .group-hover\:translate-x-1 {
+  transform: translateZ(0);
+}
+
+/* Optimize scroll-heavy containers */
+.overflow-x-auto,
+.overflow-y-auto,
+.overflow-auto {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Reduce paint during scroll for sticky elements */
+[class*="sticky"] {
+  will-change: transform;
+}
+
+/* ── Sitewide: lime green background elements always show white text ─────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C8D400;
+  border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8b300;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #C8D400 #f1f1f1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   NEW SKEUOMORPHISM — Subtle tactile depth layer
+   Applied sitewide via utility classes. Never overrides color/layout.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Light surface neumorphic card (white / #f9f9f7 backgrounds) ── */
+.skeu-card {
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: box-shadow 0.3s ease, transform 0.25s ease;
+}
+.skeu-card:hover {
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.11),
+    0 2px 6px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 0 0 1px rgba(200, 212, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* ── Pressed / active state (for tabs, active buttons) ── */
+.skeu-pressed {
+  box-shadow:
+    inset 4px 4px 8px rgba(0, 0, 0, 0.14),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.55);
+  transform: translateY(1px);
+}
+
+/* ── Badge pill — subtle embossed feel, works on both light and dark bg ── */
+.skeu-badge {
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+}
+
+
+
+/* ── Dark surface neumorphic card (#111 / #1a1a1a backgrounds) ── */
+.skeu-card-dark {
+  box-shadow:
+    6px 6px 16px rgba(0, 0, 0, 0.55),
+    -3px -3px 10px rgba(255, 255, 255, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35);
+  transition: box-shadow 0.3s ease, transform 0.25s ease;
+}
+.skeu-card-dark:hover {
+  box-shadow:
+    10px 10px 28px rgba(0, 0, 0, 0.70),
+    -4px -4px 14px rgba(255, 255, 255, 0.055),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 0 0 1px rgba(200, 212, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+/* ── Lime accent embossed surface ── */
+.skeu-lime {
+  box-shadow:
+    3px 3px 8px rgba(168, 179, 0, 0.45),
+    -2px -2px 6px rgba(255, 255, 255, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+}
+
+/* ── Inset / debossed panel (for backgrounds) ── */
+.skeu-inset {
+  box-shadow:
+    inset 3px 3px 8px rgba(0, 0, 0, 0.07),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.80);
+}
+
+/* ── Panel — raised sheet on light bg ── */
+.skeu-panel {
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 8px 24px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* ── Button raised ── */
+.skeu-btn {
+  box-shadow:
+    4px 4px 10px rgba(0, 0, 0, 0.12),
+    -2px -2px 7px rgba(255, 255, 255, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+.skeu-btn:active {
+  box-shadow:
+    inset 3px 3px 7px rgba(0, 0, 0, 0.15),
+    inset -1px -1px 5px rgba(255, 255, 255, 0.45);
+  transform: translateY(1px);
+}
+
+/* ── Lime button raised ── */
+.skeu-btn-lime {
+  box-shadow:
+    4px 4px 10px rgba(168, 179, 0, 0.4),
+    -2px -2px 6px rgba(255, 255, 255, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.18);
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+.skeu-btn-lime:hover {
+  box-shadow:
+    6px 6px 16px rgba(168, 179, 0, 0.55),
+    -3px -3px 8px rgba(255, 255, 255, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+.skeu-btn-lime:active {
+  box-shadow:
+    inset 3px 3px 8px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 4px rgba(255, 255, 255, 0.25);
+  transform: translateY(1px);
+}
+
+/* ── Dark button raised ── */
+.skeu-btn-dark {
+  box-shadow:
+    4px 4px 12px rgba(0, 0, 0, 0.35),
+    -2px -2px 6px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.45);
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+.skeu-btn-dark:hover {
+  box-shadow:
+    6px 6px 18px rgba(0, 0, 0, 0.45),
+    -3px -3px 8px rgba(255, 255, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.skeu-btn-dark:active {
+  box-shadow:
+    inset 4px 4px 10px rgba(0, 0, 0, 0.5),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.04);
+  transform: translateY(1px);
+}
+
+/* ── Section divider groove ── */
+.skeu-groove {
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.06),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* ── Input field ── */
+.skeu-input {
+  box-shadow:
+    inset 3px 3px 7px rgba(0, 0, 0, 0.08),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.75);
+}
+.skeu-input:focus {
+  box-shadow:
+    inset 3px 3px 7px rgba(0, 0, 0, 0.08),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.75),
+    0 0 0 2px rgba(200, 212, 0, 0.35);
+}
+
+/* ── Stat number engraved ── */
+.skeu-engraved {
+  text-shadow:
+    1px 1px 2px rgba(255, 255, 255, 0.85),
+    -1px -1px 1px rgba(0, 0, 0, 0.12);
+}
+
+/* ── Surface shimmer on hover — adds material feel ── */
+@keyframes skeuShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.skeu-shimmer:hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  animation: skeuShimmer 0.6s ease forwards;
+  pointer-events: none;
+  border-radius: inherit;
+}

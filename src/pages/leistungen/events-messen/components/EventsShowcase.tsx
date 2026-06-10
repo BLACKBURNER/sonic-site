@@ -1,0 +1,243 @@
+import { useState } from 'react';
+import Lightbox, { LightboxItem } from '@/components/base/Lightbox';
+import { CONTACT_EMAIL } from '@/lib/contact';
+
+const TABS = [
+  {
+    id: 'events',
+    label: 'Events',
+    icon: 'ri-calendar-event-line',
+    headline: 'Deine Marke. Unsere Bühne.',
+    sub: 'Von der exklusiven Produktpreview bis zum hybriden Kongress.',
+    pills: ['Consumer & Corporate Events', 'Händler-Events', 'Kick-Off-Events', 'Kongresse & Tagungen', 'PR-Events', 'Produktlaunches', 'Promotions', 'Roadshows & Festivals'],
+    images: [
+      { img: 'https://www.sonic-group.de/wp-content/uploads/2023/06/EVENT_NEU.jpg', title: 'Brand Activation', tag: 'Corporate' },
+      { img: 'https://www.sonic-group.de/wp-content/uploads/2023/01/7-1.jpg', title: 'Event-Dokumentation', tag: 'Dokumentation' },
+      { img: 'https://www.sonic-group.de/wp-content/uploads/2023/01/9-1-1024x510.jpg', title: 'Roadshow & Festival', tag: 'Roadshow' },
+      { img: 'https://www.sonic-group.de/wp-content/uploads/2023/02/4-1-1024x444.jpg', title: 'Händler-Event', tag: 'VIP' },
+    ],
+  },
+  {
+    id: 'messen',
+    label: 'Messen',
+    icon: 'ri-building-4-line',
+    headline: 'Messen verbinden Menschen mit Marken.',
+    sub: 'Messe-Komplettpakete in allen Größen — von der Idee bis zum Abbau.',
+    pills: ['Messebau & Ausstattung', 'Messedesign', 'Messe-Events', 'On- & Offline-Foren'],
+    images: [
+      { img: 'https://www.sonic-group.de/wp-content/uploads/2023/11/NEXARO01.jpg', title: 'Messebau Premium', tag: 'Messebau' },
+      { img: 'https://www.sonic-group.de/wp-content/uploads/2023/11/NEXARO02.jpg', title: 'Interaktive Demos', tag: 'Demo' },
+      { img: 'https://www.sonic-group.de/wp-content/uploads/2023/06/LUCID01.jpg', title: 'Produktpräsentation', tag: 'CGI' },
+      { img: 'https://www.sonic-group.de/wp-content/uploads/2023/06/POS_NEU.jpg', title: 'Messe-Stand Konzept', tag: 'Stand' },
+    ],
+  },
+  {
+    id: 'fahrzeuge',
+    label: 'Fahrzeuge & Module',
+    icon: 'ri-truck-line',
+    headline: 'Deine erfolgreiche Roadshow.',
+    sub: 'Von uns gebaute Eventfahrzeuge oder transportierbare Module. Inklusive Ideen, Personal und laufendem Betrieb.',
+    pills: ['Eventtrucks', 'Eventcontainer', 'Eventmodule', 'Promotionfahrzeuge'],
+    images: [
+      { img: 'https://www.sonic-group.de/wp-content/uploads/2023/06/LAGER_OPENER.jpg', title: 'Logistik & Aufbau', tag: 'Logistik' },
+      { img: 'https://www.sonic-group.de/wp-content/uploads/2023/02/3-1-1024x448.jpg', title: 'Eventcontainer', tag: 'Container' },
+      { img: 'https://www.sonic-group.de/wp-content/uploads/2023/01/12.jpg', title: 'Sonic Campus Aerial', tag: 'Campus' },
+      { img: 'https://www.sonic-group.de/wp-content/uploads/2023/01/5.jpg', title: 'Promotionfahrzeug', tag: 'Promo' },
+    ],
+  },
+];
+
+export default function EventsShowcase() {
+  const [activeTab, setActiveTab] = useState(0);
+  const [activeImg, setActiveImg] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const tab = TABS[activeTab];
+
+  const lightboxItems: LightboxItem[] = tab.images.map((item) => ({
+    image: item.img,
+    title: item.title,
+    category: item.tag,
+    description: tab.headline,
+  }));
+
+  const handleTabChange = (i: number) => {
+    setActiveTab(i);
+    setActiveImg(0);
+  };
+
+  const openLightbox = (idx: number) => {
+    setLightboxIndex(idx);
+    setLightboxOpen(true);
+  };
+
+  return (
+    <section id="events" className="bg-white py-20 px-6">
+      <div className="max-w-7xl mx-auto">
+
+        {/* Header */}
+        <div className="mb-10">
+          <div className="inline-flex items-center gap-2 bg-[#111]/8 border border-[#111]/12 px-4 py-1.5 mb-5">
+            <i className="ri-apps-line text-[#111] text-sm"></i>
+            <span className="text-xs font-black text-[#111] uppercase tracking-widest">Formate</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black text-[#111] leading-tight mb-2 uppercase">
+            Deine Marke. Unsere Bühne.
+          </h2>
+          <p className="text-[#111]/50 text-base">Wähle ein Format und entdecke unsere Arbeit.</p>
+        </div>
+
+        {/* Pill tabs */}
+        <div className="flex flex-wrap gap-2 mb-8 justify-center">
+          {TABS.map((t, i) => (
+            <button
+              key={t.id}
+              onClick={() => handleTabChange(i)}
+              className={`flex items-center gap-2 px-5 py-2.5 font-bold text-sm transition-all whitespace-nowrap cursor-pointer ${
+                activeTab === i
+                  ? 'bg-white shadow-lg ring-2 ring-[#C8D400] text-[#C8D400]'
+                  : 'bg-white/60 hover:bg-white hover:shadow-md ring-1 ring-gray-200 hover:ring-[#C8D400]/50 text-gray-600'
+              }`}
+              style={{ borderRadius: 0 }}
+            >
+              <i className={`${t.icon} text-base`}></i>
+              <span>{t.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Main showcase */}
+        <div
+          key={activeTab}
+          className="grid lg:grid-cols-12 border border-[#111]/10"
+          style={{ animation: 'fadeIn 0.4s ease-out' }}
+        >
+          {/* Large main image — clickable for lightbox */}
+          <div
+            className="lg:col-span-8 relative overflow-hidden group cursor-pointer"
+            style={{ minHeight: '460px' }}
+            onClick={() => openLightbox(activeImg)}
+            aria-label="Bild im Vollbild öffnen"
+          >
+            <img
+              key={activeImg}
+              src={tab.images[activeImg].img}
+              alt={tab.images[activeImg].title}
+              className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+              style={{ animation: 'imgFade 0.35s ease-out', minHeight: '460px' }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent" />
+            <div className="absolute top-4 left-4">
+              <span className="bg-[#C8D400] text-[#111] text-[10px] font-black uppercase tracking-widest px-3 py-1">{tab.images[activeImg].tag}</span>
+            </div>
+            {/* Zoom hint */}
+            <div className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center bg-black/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <i className="ri-zoom-in-line text-white text-base"></i>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <h3 className="text-xl font-black text-white mb-1 uppercase">{tab.images[activeImg].title}</h3>
+              <p className="text-white/60 text-sm">{tab.headline}</p>
+            </div>
+            {/* Thumbnail strip at bottom */}
+            <div className="absolute bottom-0 right-0 flex gap-1 p-3" onClick={(e) => e.stopPropagation()}>
+              {tab.images.map((img, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveImg(i)}
+                  className={`w-14 h-10 overflow-hidden cursor-pointer transition-all duration-300 flex-shrink-0 ${activeImg === i ? 'ring-2 ring-[#C8D400]' : 'opacity-50 hover:opacity-80'}`}
+                >
+                  <img src={img.img} alt={img.title} className="w-full h-full object-cover object-top" />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Right info panel */}
+          <div className="lg:col-span-4 bg-white border-l border-[#111]/10 flex flex-col">
+            {/* Headline block */}
+            <div className="bg-[#111] p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <i className={`${tab.icon} text-[#C8D400] text-lg`}></i>
+                <span className="text-[#C8D400] text-xs font-black uppercase tracking-widest">{tab.label}</span>
+              </div>
+              <h3 className="text-base font-black text-white mb-2 uppercase">{tab.headline}</h3>
+              <p className="text-white/55 text-xs leading-relaxed">{tab.sub}</p>
+            </div>
+
+            {/* Category pills */}
+            <div className="p-6 flex-1">
+              <div className="text-[10px] font-black text-[#111]/40 uppercase tracking-widest mb-4">Kategorien</div>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {tab.pills.map((pill, i) => (
+                  <span
+                    key={i}
+                    className="bg-white border border-[#111]/10 text-[#111]/70 text-[10px] font-bold uppercase tracking-wider px-3 py-1.5"
+                  >
+                    {pill}
+                  </span>
+                ))}
+              </div>
+
+              {/* Image nav grid — each thumbnail opens lightbox */}
+              <div className="text-[10px] font-black text-[#111]/40 uppercase tracking-widest mb-3">Beispiele</div>
+              <div className="grid grid-cols-2 gap-2">
+                {tab.images.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => { setActiveImg(i); openLightbox(i); }}
+                    className={`relative overflow-hidden cursor-pointer transition-all duration-300 group ${activeImg === i ? 'ring-2 ring-[#C8D400]' : 'opacity-55 hover:opacity-85'}`}
+                    style={{ minHeight: '60px' }}
+                    aria-label={`${img.title} im Vollbild öffnen`}
+                  >
+                    <img src={img.img} alt={img.title} className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110" style={{ minHeight: '60px' }} />
+                    <div className="absolute inset-0 bg-black/25" />
+                    {/* Zoom hint on hover */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      <i className="ri-zoom-in-line text-white text-lg drop-shadow-lg"></i>
+                    </div>
+                    <div className="absolute bottom-1 left-1.5">
+                      <span className="text-white text-[9px] font-black">{img.tag}</span>
+                    </div>
+                    {activeImg === i && (
+                      <div className="absolute top-1 right-1 w-4 h-4 flex items-center justify-center bg-[#C8D400]">
+                        <i className="ri-check-line text-[#111] text-[9px]"></i>
+                      </div>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div className="p-6 border-t border-[#111]/10">
+              <a
+                href="mailto:${CONTACT_EMAIL}`?subject=Events%20Messen%20Beratung"
+                className="flex items-center justify-center gap-2 bg-[#111] text-white px-5 py-3.5 font-black text-xs uppercase tracking-widest hover:bg-[#C8D400] hover:text-white transition-all duration-300 whitespace-nowrap cursor-pointer w-full"
+                style={{ borderRadius: 0 }}
+              >
+                <i className="ri-calendar-line"></i>
+                Beratung buchen
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Lightbox */}
+      <Lightbox
+        items={lightboxItems}
+        activeIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        onNext={() => setLightboxIndex((prev) => (prev + 1) % lightboxItems.length)}
+        onPrev={() => setLightboxIndex((prev) => (prev - 1 + lightboxItems.length) % lightboxItems.length)}
+      />
+
+      <style>{`
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes imgFade { from { opacity: 0; } to { opacity: 1; } }
+      `}</style>
+    </section>
+  );
+}

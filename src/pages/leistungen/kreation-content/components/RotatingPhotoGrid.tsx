@@ -1,0 +1,274 @@
+import { useEffect, useRef, useState } from 'react';
+import { CONTACT_EMAIL } from '@/lib/contact';
+
+const PHOTOS = [
+  {
+    src: 'https://readdy.ai/api/search-image?query=professional%20product%20photography%20studio%20shoot%20consumer%20electronics%20packaging%20premium%20dark%20moody%20atmospheric%20lighting%20dramatic%20shadows%20commercial%20quality%20editorial%20photography&width=400&height=560&seq=rpg-kreation-01&orientation=portrait',
+    label: 'Produktfoto',
+    tag: 'FOTO',
+    rotate: -14,
+    x: -420,
+    y: 20,
+    scale: 0.88,
+    zIndex: 1,
+  },
+  {
+    src: 'https://readdy.ai/api/search-image?query=brand%20identity%20design%20creative%20agency%20visual%20design%20system%20typography%20color%20palette%20minimalist%20flat%20lay%20professional%20elegant%20premium%20studio%20photography&width=400&height=560&seq=rpg-kreation-02&orientation=portrait',
+    label: 'Brand Design',
+    tag: 'DESIGN',
+    rotate: -7,
+    x: -220,
+    y: -10,
+    scale: 0.93,
+    zIndex: 2,
+  },
+  {
+    src: 'https://readdy.ai/api/search-image?query=video%20production%20studio%20professional%20camera%20crew%20filming%20product%20commercial%20creative%20agency%20dark%20dramatic%20lighting%20cinematic%20quality%20behind%20the%20scenes&width=400&height=560&seq=rpg-kreation-03&orientation=portrait',
+    label: 'Video',
+    tag: 'VIDEO',
+    rotate: 0,
+    x: 0,
+    y: 0,
+    scale: 1,
+    zIndex: 10,
+  },
+  {
+    src: 'https://readdy.ai/api/search-image?query=3D%20CGI%20photorealistic%20product%20visualization%20render%20floating%20packaging%20consumer%20electronics%20dramatic%20studio%20lighting%20lime%20green%20accent%20commercial%20quality&width=400&height=560&seq=rpg-kreation-04&orientation=portrait',
+    label: 'CGI & 3D',
+    tag: 'CGI',
+    rotate: 7,
+    x: 220,
+    y: -10,
+    scale: 0.93,
+    zIndex: 2,
+  },
+  {
+    src: 'https://readdy.ai/api/search-image?query=social%20media%20content%20creation%20lifestyle%20photography%20product%20shoot%20vibrant%20colorful%20editorial%20fashion%20beauty%20consumer%20goods%20clean%20white%20background%20professional&width=400&height=560&seq=rpg-kreation-05&orientation=portrait',
+    label: 'Social Content',
+    tag: 'SOCIAL',
+    rotate: 14,
+    x: 420,
+    y: 20,
+    scale: 0.88,
+    zIndex: 1,
+  },
+];
+
+export default function RotatingPhotoGrid() {
+  const [hovered, setHovered] = useState<number | null>(null);
+  const [visible, setVisible] = useState(false);
+  const [floatOffset, setFloatOffset] = useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number>(0);
+  const startRef = useRef<number>(0);
+
+  // Scroll reveal
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.15 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  // Gentle float animation
+  useEffect(() => {
+    const animate = (ts: number) => {
+      if (!startRef.current) startRef.current = ts;
+      const elapsed = (ts - startRef.current) / 1000;
+      setFloatOffset(Math.sin(elapsed * 0.6) * 8);
+      rafRef.current = requestAnimationFrame(animate);
+    };
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  return (
+    <div
+      ref={sectionRef}
+      className="relative w-full overflow-hidden"
+      style={{
+        background: 'linear-gradient(to bottom, #000 0%, #0a0a0a 100%)',
+        paddingTop: '80px',
+        paddingBottom: '100px',
+      }}
+    >
+      {/* Lime ambient glow */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+        style={{
+          width: '700px',
+          height: '300px',
+          background: 'radial-gradient(ellipse, rgba(200,212,0,0.12) 0%, transparent 70%)',
+          borderRadius: 0,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Section label */}
+      <div className="text-center mb-12 relative z-10">
+        <div className="inline-flex items-center gap-2 bg-[#C8D400]/15 border border-[#C8D400]/30 px-4 py-1.5 mb-4">
+          <div className="w-1.5 h-1.5 bg-[#C8D400] animate-pulse" style={{ borderRadius: 0 }} />
+          <span className="text-xs font-black text-[#C8D400] uppercase tracking-widest">Unsere Arbeit</span>
+        </div>
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight">
+          Kreation, die<br /><span className="text-[#C8D400]">verkauft.</span>
+        </h2>
+      </div>
+
+      {/* Photo fan */}
+      <div
+        className="relative flex items-center justify-center"
+        style={{ height: '420px' }}
+      >
+        {PHOTOS.map((photo, i) => {
+          const isHov = hovered === i;
+          const isCenter = i === 2;
+          const baseY = isCenter ? floatOffset : photo.y + floatOffset * 0.5;
+
+          return (
+            <div
+              key={i}
+              className="absolute cursor-pointer"
+              style={{
+                width: '200px',
+                height: '280px',
+                transform: `
+                  translateX(${photo.x}px)
+                  translateY(${isHov ? baseY - 24 : baseY}px)
+                  rotate(${isHov ? 0 : photo.rotate}deg)
+                  scale(${isHov ? 1.08 : photo.scale})
+                `,
+                zIndex: isHov ? 20 : photo.zIndex,
+                transition: 'transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease',
+                boxShadow: isHov
+                  ? '0 32px 64px rgba(0,0,0,0.7), 0 0 0 2px rgba(200,212,0,0.6), 0 0 40px rgba(200,212,0,0.2)'
+                  : '0 16px 40px rgba(0,0,0,0.5)',
+                opacity: visible ? 1 : 0,
+                transitionDelay: visible ? `${i * 80}ms` : '0ms',
+                willChange: 'transform',
+              }}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              {/* Photo */}
+              <div
+                className="w-full h-full overflow-hidden relative"
+                style={{ borderRadius: 0 }}
+              >
+                <img
+                  src={photo.src}
+                  alt={photo.label}
+                  className="w-full h-full object-cover object-top transition-transform duration-700"
+                  style={{ transform: isHov ? 'scale(1.08)' : 'scale(1)' }}
+                />
+
+                {/* Overlay gradient */}
+                <div
+                  className="absolute inset-0 transition-opacity duration-400"
+                  style={{
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)',
+                    opacity: isHov ? 1 : 0.7,
+                  }}
+                />
+
+                {/* Lime border on hover */}
+                <div
+                  className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+                  style={{
+                    boxShadow: 'inset 0 0 0 2px #C8D400',
+                    opacity: isHov ? 1 : 0,
+                  }}
+                />
+
+                {/* Tag badge */}
+                <div
+                  className="absolute top-3 left-3 px-2 py-1 text-[9px] font-black uppercase tracking-widest transition-all duration-300"
+                  style={{
+                    background: isHov ? '#C8D400' : 'rgba(200,212,0,0.85)',
+                    color: '#111',
+                    borderRadius: 0,
+                  }}
+                >
+                  {photo.tag}
+                </div>
+
+                {/* Label at bottom */}
+                <div
+                  className="absolute bottom-0 left-0 right-0 px-4 py-4 transition-all duration-400"
+                  style={{
+                    transform: isHov ? 'translateY(0)' : 'translateY(4px)',
+                    opacity: isHov ? 1 : 0.8,
+                  }}
+                >
+                  <span className="text-white text-xs font-black uppercase tracking-wider">{photo.label}</span>
+                </div>
+
+                {/* Center card: LIVE dot */}
+                {isCenter && (
+                  <div
+                    className="absolute top-3 right-3 flex items-center gap-1.5 px-2 py-1 text-[8px] font-black uppercase tracking-wider"
+                    style={{
+                      background: 'rgba(200,212,0,0.15)',
+                      border: '0.5px solid rgba(200,212,0,0.5)',
+                      color: '#C8D400',
+                      borderRadius: 0,
+                    }}
+                  >
+                    <div
+                      className="w-1.5 h-1.5 animate-pulse"
+                      style={{ background: '#C8D400', borderRadius: 0 }}
+                    />
+                    LIVE
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Category labels below */}
+      <div className="flex items-center justify-center gap-8 mt-10 relative z-10 flex-wrap px-4">
+        {PHOTOS.map((photo, i) => (
+          <button
+            key={i}
+            className="flex flex-col items-center gap-1.5 cursor-pointer group"
+            onMouseEnter={() => setHovered(i)}
+            onMouseLeave={() => setHovered(null)}
+          >
+            <div
+              className="h-0.5 w-8 transition-all duration-300"
+              style={{
+                background: hovered === i ? '#C8D400' : 'rgba(255,255,255,0.2)',
+                width: hovered === i ? '32px' : '20px',
+              }}
+            />
+            <span
+              className="text-[10px] font-black uppercase tracking-widest transition-colors duration-300"
+              style={{ color: hovered === i ? '#C8D400' : 'rgba(255,255,255,0.4)' }}
+            >
+              {photo.label}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {/* Bottom CTA */}
+      <div className="text-center mt-12 relative z-10">
+        <a
+          href="mailto:${CONTACT_EMAIL}`?subject=Kreation%20Portfolio%20anfragen"
+          className="inline-flex items-center gap-2 px-8 py-4 font-black text-xs uppercase tracking-widest transition-all duration-300 hover:bg-white hover:text-[#111] whitespace-nowrap cursor-pointer"
+          style={{ background: '#C8D400', color: '#111', borderRadius: 0 }}
+        >
+          <i className="ri-image-line" />
+          Portfolio anfragen
+          <i className="ri-arrow-right-line" />
+        </a>
+      </div>
+    </div>
+  );
+}
